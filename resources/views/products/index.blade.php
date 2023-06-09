@@ -145,10 +145,14 @@
                         </div>
                     </td> -->
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {{ $product->price }}
+                        ${{ $product->price }}
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                        <form action="{{ route('products.destroy', $product) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

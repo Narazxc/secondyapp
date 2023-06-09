@@ -108,7 +108,13 @@ class ProductController extends Controller
         return redirect('/');
     }
 
-    public function destroy($id){
-        
+    public function destroy(Product $product){
+
+        // Laravel native authorization
+        $this->authorize('delete', $product); // will throw exception & render 403 view
+
+        $product->delete();
+
+        return back();
     }
 }

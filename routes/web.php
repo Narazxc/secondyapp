@@ -40,9 +40,11 @@ Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name(
 // Route::get('/yourproducts', function () {
 //     return view('products.index');
 // });
+
 Route::get('/u/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store']);
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
