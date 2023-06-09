@@ -33,8 +33,11 @@ class ProductController extends Controller
     }
 
 
-    public function show($id){
-        
+    public function show(Product $product, Request $request){
+        return view('products.show', [
+            'product' => $product,
+            'user' => $request->user()
+        ]);
     }
 
     public function store(Request $request){
