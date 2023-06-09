@@ -28,7 +28,7 @@ use App\Http\Controllers\HomepageController;
 //     return view('homepage', ['products' => $products]);
 // }
 
-Route::get('/', [HomepageController::class, 'index'] );
+Route::get('/', [HomepageController::class, 'index']);
 
 
 // categories

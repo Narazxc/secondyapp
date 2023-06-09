@@ -16,6 +16,15 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
         },
+        container: {
+            padding: {
+                DEFAULT: "1rem",
+                sm: "4rem",
+                lg: "5rem",
+                xl: "7rem",
+                "2xl": "8rem",
+            },
+        },
     },
 
     plugins: [forms],
