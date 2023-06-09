@@ -1,9 +1,14 @@
-@extends('layouts.sidebar')
+@extends('layouts.layout')
 
-<div class="flex justify-center p-4 sm:ml-64 h-full">
+
+@section('content')
+
+    <!-- Referencing Blade component (sidebar) -->
+    <x-sidebar/>
+    <!-- This div is to make content stays beside the sidebar -->
+    <div class="flex justify-center p-4 sm:ml-64 h-full">
 
 <div class="shadow-md w-3/4 rounded-md">
-
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -160,3 +165,7 @@
 
    </div>
 </div>
+
+</div>
+
+@endsection
