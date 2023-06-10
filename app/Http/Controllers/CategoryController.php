@@ -11,6 +11,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        
         // dd($request->user()->products);
         $categories = Category::get();
 

@@ -11,6 +11,13 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
     //
     public function index(Request $request){
 
@@ -52,6 +59,10 @@ class ProductController extends Controller
         // // Create and save the product
         // $product->save();
 
+
+        // dd($request->all());
+
+        
         // Create product via user and product relationship
         $product = $request->user()->products()->create([
             // Using this relationship set up, behind the scene laravel will automatically fill in user_id for us
@@ -61,14 +72,14 @@ class ProductController extends Controller
             'price' => $request->price,
             'category_id' => $request->category,
         ]);
-
-
+        
+        
         // $productID = $request->user()->products->pluck('id')->last();
-
+        $images = $request->file('images');
+        
         // Retrieve the product ID
         $productID = $product->id;
 
-        $images = $request->file('images');
         $uploadCount = 0;
 
         foreach ($images as $image) {
@@ -76,22 +87,22 @@ class ProductController extends Controller
             // time_randomstring.png/jpg
             $imageName = time() . '_' . Str::random(20) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
-        
-
+            
             // Create and save the image with the product ID
             $productImage = new ProductImage();
             $productImage->image_path = $imageName;
             $productImage->product_id = $productID;
-            
-            $product->images()->save($productImage);
-
+            $productImage->save();
             $uploadCount++;
         }
 
-            // if ($uploadCount > 0) {
-            //     // Images uploaded successfully
-            //     return $uploadCount . ' image(s) uploaded successfully.';
-            // }
+        if ($uploadCount === count($images)) {
+            // Images uploaded successfully
+            // return $uploadCount . ' image(s) uploaded successfully.';
+            return redirect('/');
+        }
+
+    
         
         
         
@@ -105,7 +116,7 @@ class ProductController extends Controller
 
 
 
-        return redirect('/');
+        // return redirect('/');
     }
 
     public function destroy(Product $product){
