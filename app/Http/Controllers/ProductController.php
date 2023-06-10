@@ -127,6 +127,9 @@ class ProductController extends Controller
         // Laravel native authorization
         $this->authorize('delete', $product); // will throw exception & render 403 view
 
+        // delete any image_path related to the product
+        $product->images()->where('product_id', $product->id)->delete();
+        // delete the product
         $product->delete();
 
         return back();
