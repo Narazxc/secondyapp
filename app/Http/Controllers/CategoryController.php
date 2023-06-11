@@ -46,10 +46,23 @@ class CategoryController extends Controller
         return redirect()->route('categories');
     }
 
+    public function edit (Category $category) {
+        return response()->json([
+        'category' => $category
+    ]);
+    }
 
-    public function destroy(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        $category = Category::findOrFail($id);
+        $category->update($request->all());
+    }
+
+
+    public function destroy(Request $request, Category $category)
+    {
+        // Laravel native authorization
+        $this->authorize('manage', $category); // will throw exception & render 403 view
+        
         $category->delete();
 
         return redirect()->route('categories');

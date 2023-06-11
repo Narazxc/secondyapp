@@ -153,7 +153,7 @@ class ProductController extends Controller
             return redirect()->route('products.index');
         }
 
-        dd($product);
+        // dd($product);
         
         // Retrieve the product ID
         $productID = $product->id;

@@ -30,11 +30,14 @@ use App\Http\Controllers\HomepageController;
 
 Route::get('/', [HomepageController::class, 'index']);
 
-
 // categories
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_admin']], function () {
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+});
 
 // only return view without the data
 // Route::get('/yourproducts', function () {
