@@ -130,6 +130,18 @@ class ProductController extends Controller
         // return redirect('/');
     }
 
+    public function edit (Product $product)
+    {
+        $categories = Category::get();
+
+        // dd($product);
+
+        return view('products.edit', [
+            'product' => $product,
+            'categories' => $categories
+        ]);
+    }
+
     public function destroy(Product $product){
 
         // Laravel native authorization

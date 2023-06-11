@@ -27,7 +27,7 @@
                 <th scope="col" class="px-6 py-3">
                     Price
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3 flex justify-center">
                     Action
                 </th>
             </tr>
@@ -148,11 +148,14 @@
                         ${{ $product->price }}
                     </td>
                     <td class="px-6 py-4">
-                        <form action="{{ route('products.destroy', $product) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
-                        </form>
+                        <div class="h-full flex justify-evenly">
+                            <a href="{{ route('products.edit', $product) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <form action="{{ route('products.destroy', $product) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
