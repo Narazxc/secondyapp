@@ -25,6 +25,9 @@
                     Qty
                 </th> -->
                 <th scope="col" class="px-6 py-3">
+                    Category
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Price
                 </th>
                 <th scope="col" class="px-6 py-3 flex justify-center">
@@ -128,6 +131,9 @@
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ $product->title }}
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        {{ $product->category->name  }}
                     </td>
                     <!-- <td class="px-6 py-4">
                         <div class="flex items-center space-x-3">

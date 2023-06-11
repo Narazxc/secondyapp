@@ -21,9 +21,11 @@ class ProductController extends Controller
     //
     public function index(Request $request){
 
+        
         // Get all the products created by currently authenticated user
         $products = Product::where('user_id', $request->user()->id)->get(); 
-
+        
+        // dd($products->categories);
         return view('products.index', [
             'products' => $products
         ]);
@@ -41,28 +43,18 @@ class ProductController extends Controller
 
 
     public function show(Product $product, Request $request){
+
+        
+
         return view('products.show', [
             'product' => $product,
-            'user' => $request->user()
+            'user' => $request->user()  // For displaying user in the navbar (homepage / product-detail)
         ]);
     }
 
     public function store(Request $request){
 
-        // no validation yet
-
-        // Saving product without relationship involve
-        // $product = new Product();
-        // $product->title = $request->title;
-        // $product->description = $request->description;
-        // $product->price = $request->price;
-        // $product->category_id = $request->category;
-        // // Create and save the product
-        // $product->save();
-
-        
-        
-        // Validation
+        // Input validation
         $this->validate($request, [
             // Validation rules comes with the Controller class, check laravel doc
             'title' => 'required',
@@ -85,7 +77,7 @@ class ProductController extends Controller
         ]);
         
         
-        // $productID = $request->user()->products->pluck('id')->last();
+        // No file type validation yet
         $images = $request->file('images');
         
         // Retrieve the product ID
@@ -113,21 +105,6 @@ class ProductController extends Controller
             return redirect('/');
         }
 
-    
-        
-        
-        
-        
-
-        
-        // $request->description;
-        // $request->price;
-
-        // dd("$product");
-
-
-
-        // return redirect('/');
     }
 
     public function edit (Product $product)
@@ -141,6 +118,70 @@ class ProductController extends Controller
             'categories' => $categories
         ]);
     }
+
+
+    public function update (Request $request, Product $product){
+
+        // dd($request);
+
+        // Input validation
+        $this->validate($request, [
+            // Validation rules comes with the Controller class, check laravel doc
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+        ]);
+
+
+        // Can't use $request->all() cause confliction with product category_id & $request->category
+        // $product->update($request->all());
+     
+        $product->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category,
+        ]);
+
+
+        // No file type validation yet
+        $images = $request->file('images');
+
+        // If user don't update any images
+        if($images === null){
+            return redirect()->route('products.index');
+        }
+
+        dd($product);
+        
+        // Retrieve the product ID
+        $productID = $product->id;
+
+        $uploadCount = 0;
+
+
+        foreach ($images as $image) {
+            
+            // time_randomstring.png/jpg
+            $imageName = time() . '_' . Str::random(20) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            
+            // Create and save the image with the product ID
+            $productImage = new ProductImage();
+            $productImage->image_path = $imageName;
+            $productImage->product_id = $productID;
+            $productImage->save();
+            $uploadCount++;
+        }
+
+        if ($uploadCount === count($images)) {
+            return redirect()->route('products.index');
+        }
+
+
+    }
+
 
     public function destroy(Product $product){
 

@@ -9,8 +9,9 @@
     
         <!-- Wrapper for box-shadow -->
         <div class="flex-1 shadow-md rounded-md">
-            <form action="/products" method="POST" enctype="multipart/form-data" class="m-10">
+            <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data" class="m-10">
                 @csrf
+                @method('patch')
                 <h2 class="text-3xl font-bold my-4">Edit product</h2>
                 
                 <div class="mb-6">
@@ -48,9 +49,14 @@
                 </div> 
                 <div class="mb-6">
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                <select id="category" value="{{ $product->category_id }}" name="category" class=" @error('category') border-red-500 @enderror  bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="category" name="category" class=" @error('category') border-red-500 @enderror  bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <!-- This if statement can be omitted -->
+                        @if($category->name === $product->category->name)
+                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
                     @endforeach
                 </select>
 

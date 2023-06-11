@@ -21,12 +21,14 @@ class Product extends Model
 
 
     
-
-    public function categories(){
-
+    // NAMING OF THESE RELATIONSHIP METHODS ARE IMPORTANT!!!!!
+    // belongsTo method name singular
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
 
+    // hasMany method name plural
     public function images()
     {
         return $this->hasMany(ProductImage::class);
