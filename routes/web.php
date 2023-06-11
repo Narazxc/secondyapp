@@ -33,7 +33,7 @@ Route::get('/', [HomepageController::class, 'index']);
 
 // categories
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::post('/categories', [CategoryController::class, 'store']);
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 // only return view without the data

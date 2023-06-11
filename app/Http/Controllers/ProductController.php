@@ -51,20 +51,28 @@ class ProductController extends Controller
 
         // no validation yet
 
-
+        // Saving product without relationship involve
         // $product = new Product();
-
         // $product->title = $request->title;
         // $product->description = $request->description;
         // $product->price = $request->price;
         // $product->category_id = $request->category;
-
         // // Create and save the product
         // $product->save();
 
-
+        
+        
+        // Validation
+        $this->validate($request, [
+            // Validation rules comes with the Controller class, check laravel doc
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+            'images' => 'required'
+        ]);
+        
         // dd($request->all());
-
         
         // Create product via user and product relationship
         $product = $request->user()->products()->create([

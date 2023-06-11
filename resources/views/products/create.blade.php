@@ -15,25 +15,50 @@
             
             <div class="mb-6">
                <label for="title"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product title</label>
-               <input type="title" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product title" required>
+               <input type="title" name="title" id="title" class="bg-gray-50 border border-gray-300 @error('title') border-red-500 @enderror text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product title" >
+
+               @error('title')
+                  <div class="text-red-500 mt-2 text-sm">
+                     {{ $message }}
+                  </div>
+               @enderror
             </div> 
 
             <div class="mb-6">
                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-               <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your details here..."></textarea>
+               <textarea id="description" name="description" rows="4" class=" @error('description') border-red-500 @enderror block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your details here..."></textarea>
+
+
+               @error('description')
+                  <div class="text-red-500 mt-2 text-sm">
+                     {{ $message }}
+                  </div>
+               @enderror
             </div> 
 
             <div class="mb-6">
                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-               <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Price" required>
+               <input type="number" name="price" id="price" class=" @error('price') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Price">
+
+               @error('price')
+                  <div class="text-red-500 mt-2 text-sm">
+                     {{ $message }}
+                  </div>
+               @enderror
             </div> 
             <div class="mb-6">
                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-               <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+               <select id="category" name="category" class=" @error('category') border-red-500 @enderror  bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   @foreach($categories as $category)
                      <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
                </select>
+
+               @error('category')
+                  <div class="text-red-500 mt-2 text-sm">
+                     {{ $message }}
+                  </div>
+               @enderror
             </div>
 
             <div class="relative flex items-center justify-center w-full">
@@ -43,9 +68,15 @@
                   <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                </div>
-               <input id="dropzone-file" type="file" class="unhidden absolute top-0 left-0 w-full h-full opacity-1 active:border-transparent focus:ring-transparent focus:outline-none active:ring-0 cursor-pointer" name="images[]" multiple />
+               <input id="dropzone-file" type="file" class="unhidden @error('images') border-red-500 @enderror absolute top-0 left-0 w-full h-full opacity-1 active:border-transparent focus:ring-transparent focus:outline-none active:ring-0 cursor-pointer" name="images[]" multiple />
                </label>
+
             </div>
+            @error('images')
+               <div class="text-red-500 mt-2 text-sm">
+                  {{ $message }}
+               </div>
+            @enderror
             
             <button type="submit" id="image-input" class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
          </form>

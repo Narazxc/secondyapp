@@ -26,17 +26,26 @@ class CategoryController extends Controller
 
     // }
 
+
+
     public function store(Request $request)
     {
-    //     $validated = $request->validate([
-    //     'category' => 'required|unique:name|max:255',
+
+    // // Validation
+    // $this->validate($request, [
+    //     'category' => 'required'
     // ]);
+
+    // for debugging purposes
+    // dd($request->all());
+
 
     // Store/create
     Category::create(['name' => $request->category]);
 
         return redirect()->route('categories');
     }
+
 
     public function destroy(Request $request, $id)
     {
