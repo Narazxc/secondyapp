@@ -21,6 +21,9 @@ class Product extends Model
     ];
 
 
+    public function user(){
+        return $this->belongsTo(User::class); 
+    }
     
     // NAMING OF THESE RELATIONSHIP METHODS ARE IMPORTANT!!!!!
     // belongsTo method name singular
