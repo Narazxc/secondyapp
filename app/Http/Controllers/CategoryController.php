@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        
+        // dd(Category::get());
         // dd($request->user()->products);
         $categories = Category::get();
 
@@ -61,11 +61,12 @@ class CategoryController extends Controller
     public function destroy(Request $request, Category $category)
     {
         // Laravel native authorization
-        $this->authorize('manage', $category); // will throw exception & render 403 view
+        // $this->authorize('manage', $category); // will throw exception & render 403 view
         
-        $category->delete();
 
+        $category->delete();
         return redirect()->route('categories');
+  
     }
 
 

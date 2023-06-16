@@ -59,6 +59,7 @@ class ProductController extends Controller
             // Validation rules comes with the Controller class, check laravel doc
             'title' => 'required',
             'description' => 'required',
+            'tags' => 'required',
             'price' => 'required',
             'category' => 'required',
             'images' => 'required'
@@ -73,6 +74,7 @@ class ProductController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
+            'tags' => $request->tags,
             'category_id' => $request->category,
         ]);
         
@@ -130,6 +132,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'tags' => 'required',
             'category' => 'required',
         ]);
 
@@ -141,6 +144,7 @@ class ProductController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
+            'tags' => $request->tags,
             'category_id' => $request->category,
         ]);
 

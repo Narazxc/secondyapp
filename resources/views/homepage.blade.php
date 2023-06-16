@@ -96,6 +96,10 @@
                     <img src="@if($product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $product->images->first()->image_path) }} @endif" alt="Product Image" class="h-full w-full object-cover object-center group-hover:opacity-75">
                     </div>
                     <h3 class="mt-4 text-sm text-gray-700">{{ $product['title'] }}</h3>
+                    <div class="my-2">
+                        <span class="bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Pink</span>
+                    </div>
+                    
                     <p class="mt-1 text-lg font-medium text-gray-900">${{ $product['price'] }}</p>
                 </a>
                 @endforeach
