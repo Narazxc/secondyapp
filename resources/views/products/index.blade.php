@@ -27,6 +27,9 @@
                 <th scope="col" class="px-6 py-3">
                     Category
                 </th>
+                <th scope="col" max-w-xs class="px-6 py-3">
+                    Tags
+                </th>
                 <th scope="col" class="px-6 py-3">
                     Price
                 </th>
@@ -150,6 +153,17 @@
                             </button>
                         </div>
                     </td> -->
+                    <td class="px-6 py-4 font-semibold max-w-xs text-gray-900 dark:text-white">
+                       
+                        @php
+                            $tags = explode(',', $product->tags);
+                        @endphp
+
+                        @foreach($tags as $tag)
+                            <div class="bg-pink-100 inline-block cursor-pointer text-pink-800 text-xs my-1 font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">{{ $tag }}</div>
+                        @endforeach
+                            
+                    </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         ${{ $product->price }}
                     </td>

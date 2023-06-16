@@ -97,7 +97,13 @@
                     </div>
                     <h3 class="mt-4 text-sm text-gray-700">{{ $product['title'] }}</h3>
                     <div class="my-2">
-                        <span class="bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Pink</span>
+                        @php
+                            $tags = explode(',', $product->tags);
+                        @endphp
+
+                        @foreach($tags as $tag)
+                        <span class="bg-pink-100 cursor-pointer text-pink-800 text-xs font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">{{ $tag }}</span>
+                        @endforeach
                     </div>
                     
                     <p class="mt-1 text-lg font-medium text-gray-900">${{ $product['price'] }}</p>
