@@ -47,7 +47,7 @@
         <div class="md:flex items-start justify-center py-12 2xl:px-20 md:px-6 px-4">
             <div class="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
                 <img src="@if($product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $product->images->first()->image_path) }} @endif" alt="Product Image" class="h-full w-full object-cover object-center group-hover:opacity-75">
-                <div class="flex flex-wrap items-center justify-between mt-3 -mx-2 space-x-4 md:space-x-0">
+                <div class="flex flex-wrap mt-3 -mx-2 space-x-4 md:space-x-0">
                     @foreach($product->images as $image)
                         <img alt="image-tag-one" class="small-img sm:w-1/3 px-2 mb-4 md:max-h-32 lg:max-h-32 object-cover md:w-1/4 lg:w-1/4 w-full" src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" />
                             
