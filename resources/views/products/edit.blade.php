@@ -2,6 +2,7 @@
 
 
 @section('content')
+    
     <!-- Referencing Blade component (sidebar) -->
     <x-sidebar/>
     <!-- This div is to make content stays beside the sidebar -->
@@ -108,13 +109,34 @@
             <h2 class="text-3xl ml-6 font-bold my-4">Previous Images</h2>
 
             <!-- Two columns -->
-            <div class="flex flex-wrap justify-between pb-10 ml-4 h-32 -mx-2">
+            <div id="lightgallery" class="flex flex-wrap justify-between pb-10 ml-4 h-32 -mx-2">
                 @foreach($product->images as $image)
-                <div class="md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
+                <a href="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" data-lg-size="1024-800" class="md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
                     <img src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" alt="Product Image" class="w-full h-full mb-4 object-cover object-center group-hover:opacity-75">
-                </div>
+                </a>
                 @endforeach
             </div>
         </div>
+
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js" integrity="sha512-dSI4QnNeaXiNEjX2N8bkb16B7aMu/8SI5/rE6NIa3Hr/HnWUO+EAZpizN2JQJrXuvU7z0HTgpBVk/sfGd0oW+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/fullscreen/lg-fullscreen.min.js" integrity="sha512-wUl8rYJugCiHiMm1uyGDqcgkvwoY9paD9vLJzT3e4mwp46yB0cicFVcvzy8N6UpbtQyFlJDBzrQQ3BNL72w1+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+    // lightGallery(document.getElementById('lightgallery'), {
+    //     plugins: [lgZoom, lgFullscreen],
+    //     licenseKey: '0000-0000-000-0000',
+    //     speed: 500,
+    //     // ... other settings
+    // });
+    lightGallery(document.getElementById('lightgallery'), {
+        animateThumb: false,
+        zoomFromOrigin: false,
+        allowMediaOverlap: false,
+        toggleThumb: false,
+    });
+
+
+</script>
 @endsection
