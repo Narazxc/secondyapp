@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,13 @@ class Product extends Model
     ];
 
 
+    // Check if a user already added this product to thier favorite once already
+    public function favoritedBy(User $user)
+    {
+        return $this->favorites->contains('user_id', $user->id);
+    }
+
+
     public function user(){
         return $this->belongsTo(User::class); 
     }
@@ -36,5 +44,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }

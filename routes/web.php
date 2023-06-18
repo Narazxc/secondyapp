@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ProductFavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ use App\Http\Controllers\HomepageController;
 
 Route::get('/', [HomepageController::class, 'index']);
 
+Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites');
+Route::delete('/products/{product}/favorites', [ProductFavoriteController::class, 'destroy'])->name('products.favorites');
+
+
 // categories
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_admin']], function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
@@ -52,6 +57,8 @@ Route::post('/products', [ProductController::class, 'store']);
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::patch('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

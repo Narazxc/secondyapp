@@ -46,7 +46,7 @@
 
         <div class="md:flex items-start justify-center py-12 2xl:px-20 md:px-6 px-4">
             <div class="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
-                <img src="@if($product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $product->images->first()->image_path) }} @endif" alt="Product Image" class="h-full w-full object-cover object-center group-hover:opacity-75">
+                <img src="@if($product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $product->images->first()->image_path) }} @endif" id="ProductImg" alt="Product Image" class="h-full w-full object-cover object-center group-hover:opacity-75">
                 <div class="flex flex-wrap mt-3 -mx-2 space-x-4 md:space-x-0">
                     @foreach($product->images as $image)
                         <img alt="image-tag-one" class="small-img sm:w-1/3 px-2 mb-4 md:max-h-32 lg:max-h-32 object-cover md:w-1/4 lg:w-1/4 w-full" src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" />
@@ -69,7 +69,7 @@
             <div class="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
                 <div class="border-b border-gray-200 pb-6">
                     <p class="text-sm leading-none text-gray-600 dark:text-gray-300 ">Balenciaga Fall Collection</p>
-                    <h1 class="lg:text-2xl text-xl font-semibold lg:leading-6 leading-7 text-gray-800 dark:text-white mt-2">{{ $product->title }}</h1>
+                    <h1 class="lg:text-3xl text-xl font-semibold lg:leading-6 leading-7 text-gray-800 dark:text-white mt-2">{{ $product->title }}</h1>
                 </div>
 
                 <div class="py-4 border-b border-gray-200 flex items-center justify-between">
@@ -110,6 +110,28 @@
                     </div>
                 </div>
 
+
+                @if(!$product->favoritedBy(auth()->user()))
+                    <form action="{{ route('products.favorites', $product) }}" method="post">
+                        @csrf
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:outline-none ">
+                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Add to favorite
+                            </span>
+                        </button>
+                    </form>
+                @else
+                    <form action="{{ route('products.favorites', $product) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:outline-none ">
+                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Remove from favorite
+                            </span>
+                        </button>
+                    </form>
+                @endif
+
                 <!-- <button class="dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
                     <img class="mr-3 dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/svg1.svg" alt="location">
                     <img class="mr-3 hidden dark:block" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/svg1dark.svg" alt="location">
@@ -128,12 +150,17 @@
                                     @endforeach
                                 </span>
                     </p>
+                    <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Favorites: {{ $product->favorites->count() }}</p>
+
 
                     <!-- <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Length: 13.2 inches</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Height: 10 inches</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Depth: 5.1 inches</p>
                     <p class="md:w-96 text-base leading-normal text-gray-600 dark:text-gray-300 mt-4">Composition: 100% calf leather, inside: 100% lamb leather</p> -->
                 </div>
+
+                
+                
                 <div>
                     <div class="border-t border-b py-4 mt-7 border-gray-200">
                         <div data-menu class="flex justify-between items-center cursor-pointer">
@@ -176,30 +203,42 @@ for (let i = 0; i < elements.length; i++) {
         child.classList.toggle("hidden");
         andicators[0].classList.toggle("rotate-180");
     });
+}
 
 
     let ProductImg = document.getElementById("ProductImg");
-    let SmallImg = document.getElementsByClassName("small-img");
+    let SmallImgs = document.getElementsByClassName("small-img");
 
-    console.log(SmallImg[0].getAttribute('src'));
+        Array.from(SmallImgs).forEach((SmallImg) => {
+        SmallImg.addEventListener("click", change);
+        });
 
-      SmallImg[0].onclick = function () {
-        ProductImg.src = SmallImg[0].src;
+        function change() {
+        ProductImg.src = this.src;
+        }
+
+
+    // console.log(SmallImg[0].getAttribute('src'));
+
+    //   SmallImg[0].onclick = function () {
+    //     ProductImg.src = SmallImg[0].src;
         
-      };
+    //   };
 
-      SmallImg[1].onclick = function () {
-        ProductImg.src = SmallImg[1].src;
-      };
+    //   SmallImg[1].onclick = function () {
+    //     ProductImg.src = SmallImg[1].src;
+    //   };
 
-      SmallImg[2].onclick = function () {
-        ProductImg.src = SmallImg[2].src;
-      };
+    //   SmallImg[2].onclick = function () {
+    //     ProductImg.src = SmallImg[2].src;
+    //   };
 
-      SmallImg[3].onclick = function () {
-        ProductImg.src = SmallImg[3].src;
-      };
-}
+    //   SmallImg[3].onclick = function () {
+    //     ProductImg.src = SmallImg[3].src;
+    //   };
+
+
+
 
 </script>
 
