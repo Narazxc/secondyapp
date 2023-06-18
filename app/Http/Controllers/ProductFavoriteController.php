@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,26 @@ class ProductFavoriteController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+    }
+
+    public function index(Request $request){
+
+        // dd($request->user()->favorites->product);
+        
+
+        // Current authenticated user
+        $user = $request->user();
+
+        // dd($user->favorites);
+
+
+        // Grab user favorite products
+        $favorites = $user->favorites()->get();
+
+
+        return view('favorites.index', [
+            'favorites' => $favorites
+        ]);
     }
 
 

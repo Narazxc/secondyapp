@@ -31,6 +31,7 @@ use App\Http\Controllers\ProductFavoriteController;
 
 Route::get('/', [HomepageController::class, 'index']);
 
+Route::get('/products/u/favorites', [ProductFavoriteController::class, 'index'])->name('favorites.index');
 Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites');
 Route::delete('/products/{product}/favorites', [ProductFavoriteController::class, 'destroy'])->name('products.favorites');
 

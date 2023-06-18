@@ -112,7 +112,7 @@
 
 
                 @if(!$product->favoritedBy(auth()->user()))
-                    <form action="{{ route('products.favorites', $product) }}" method="post">
+                    <form class="mt-6" action="{{ route('products.favorites', $product) }}" method="post">
                         @csrf
                         <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:outline-none ">
                             <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
@@ -121,7 +121,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('products.favorites', $product) }}" method="post">
+                    <form class="mt-6" action="{{ route('products.favorites', $product) }}" method="post">
                         @csrf
                         @method('delete')
                         <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:outline-none ">
@@ -205,17 +205,43 @@ for (let i = 0; i < elements.length; i++) {
     });
 }
 
-
+    // let imgIndex;
     let ProductImg = document.getElementById("ProductImg");
     let SmallImgs = document.getElementsByClassName("small-img");
 
-        Array.from(SmallImgs).forEach((SmallImg) => {
+    Array.from(SmallImgs).forEach((SmallImg, i) => {
         SmallImg.addEventListener("click", change);
-        });
+    });
 
-        function change() {
+    function change() {
         ProductImg.src = this.src;
-        }
+    }
+
+    // let currentIndex = localStorage.getItem("currentIndex"); // Retrieve the stored index from local storage
+
+    // if (currentIndex !== null) {
+    // // If the index exists in local storage, convert it to a number
+    // currentIndex = parseInt(currentIndex, 10);
+    // } else {
+    // currentIndex = 0; // Set the initial index to 0 if it doesn't exist in local storage
+    // }
+
+    // Array.from(SmallImgs).forEach((SmallImg, i) => {
+    // SmallImg.addEventListener("click", change);
+    // });
+
+    // function change() {
+    // ProductImg.src = this.src;
+    // currentIndex = Array.from(SmallImgs).indexOf(this); // Update the current index to the clicked image index
+
+    // // Store the updated index in local storage
+    // localStorage.setItem("currentIndex", currentIndex.toString());
+    // }
+
+    // // Set the initial image based on the stored index
+    // ProductImg.src = SmallImgs[currentIndex].src;
+
+    
 
 
     // console.log(SmallImg[0].getAttribute('src'));
