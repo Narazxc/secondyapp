@@ -47,14 +47,25 @@ class CategoryController extends Controller
     }
 
     public function edit (Category $category) {
-        return response()->json([
-        'category' => $category
-    ]);
+        // dd($category);
+
+
+        return view('categories.edit', [
+            'category' => $category
+        ]);
     }
 
     public function update(Request $request, Category $category)
     {
-        $category->update($request->all());
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $category->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('categories');
     }
 
 

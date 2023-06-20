@@ -118,7 +118,7 @@
                                         </td>
                                     @endif
                                     <td class="px-6 py-4 flex justify-evenly">
-                                            <a data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="modal-trigger font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                            <a href="{{ route('categories.edit', $category) }}"  class=" font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         <form action="{{ route('categories.destroy', $category ?? '') }}" method="post">
                                             @csrf
                                             @method('DELETE')
