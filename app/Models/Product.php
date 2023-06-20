@@ -50,4 +50,11 @@ class Product extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function scopeFilter ($query, array $filters){
+        if($filters['tag'] ?? false){
+            $query->where('tags', 'like', '%' . request('tag') . '%');
+        }
+        
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProductFavoriteController;
+use App\Http\Controllers\SearchResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,9 @@ use App\Http\Controllers\ProductFavoriteController;
 // }
 
 Route::get('/', [HomepageController::class, 'index']);
+
+Route::get('/results', [SearchResultsController::class, 'search']);
+
 
 Route::get('/products/u/favorites', [ProductFavoriteController::class, 'index'])->name('favorites.index');
 Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites');

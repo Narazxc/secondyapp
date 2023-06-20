@@ -141,14 +141,16 @@
                     <p class="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">{{ $product->description }}</p>
                     <p class="text-base leading-4 mt-7 text-gray-600 dark:text-gray-300">Product ID: {{ $product->id }}</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Tags: 
-                                @php
-                                    $tags = explode(',', $product->tags);
-                                @endphp
-                                <span class="ml-2">
-                                    @foreach($tags as $tag)
-                                    <span class="bg-pink-100 cursor-pointer text-pink-800 text-xs font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">{{ $tag }}</span>
-                                    @endforeach
-                                </span>
+                        @php
+                            $tags = explode(',', $product->tags);
+                        @endphp
+                        <span class="ml-2">
+                            @foreach($tags as $tag)
+                            <a href="/results?tag={{ $tag }}">
+                                <span class="bg-pink-100 cursor-pointer text-pink-800 text-xs font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">{{ $tag }}</span>
+                            </a>
+                            @endforeach
+                        </span>
                     </p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Favorites: {{ $product->favorites->count() }}</p>
 
