@@ -44,11 +44,26 @@ class ProductController extends Controller
 
     public function show(Product $product, Request $request){
 
+        $currentProductId = $product->id; // Replace with the ID of the current product
+        $categoryID = $product->category_id; // Replace with the desired category ID
+
+        $products = Product::paginate(8);
+
+        // get all product with the same category
+        $sameCategoryProducts = Product::where('category_id', $product->category_id)->paginate(8);
+
+
+        // get product with the same category exclude the current product
+        $sameCategoryProductsExceptTheOneViewing = Product::where('category_id', $categoryID)
+                    ->where('id', '!=', $currentProductId)
+                    ->get();
         
 
         return view('products.show', [
             'product' => $product,
-            'user' => $request->user()  // For displaying user in the navbar (homepage / product-detail)
+            'user' => $request->user(),  // For displaying user in the navbar (homepage / product-detail)
+            'relatedProducts' => $sameCategoryProductsExceptTheOneViewing,
+            'products' => $products
         ]);
     }
 
