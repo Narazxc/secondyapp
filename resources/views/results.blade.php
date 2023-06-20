@@ -7,7 +7,11 @@
     <section>
         <div class="bg-white">
         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
-        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">Search result for: {{ $tag }}</h2>
+        @if ($tag)
+            <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">Product with tag: {{$tag}}</h2>
+        @else
+            <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">Search result for: {{$search}}</h2>
+        @endif
 
         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
 

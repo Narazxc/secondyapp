@@ -16,6 +16,7 @@ class SearchResultsController extends Controller
         $user = $request->user();
 
         return view('results', [
+            'search' => request()->search,
             'tag' => request()->tag,
             'user' => $user,
             'products' => $products
