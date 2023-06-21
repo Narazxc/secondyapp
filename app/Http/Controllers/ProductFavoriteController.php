@@ -26,7 +26,11 @@ class ProductFavoriteController extends Controller
 
 
         // Grab user favorite products
-        $favorites = $user->favorites()->get();
+        // $favorites = $user->favorites()->filter(request(['tableSearch']))->get();
+        $favorites = $user->favorites()->filter(request()->only('tableSearch'))->paginate(5);
+
+        // dd($favorites);
+
 
 
         return view('favorites.index', [

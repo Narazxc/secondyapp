@@ -18,4 +18,11 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+   public function scopeFilter($query, array $filters)
+    {
+         if($filters['tableSearch'] ?? false){
+            $query->where('name', 'like', '%' . request('tableSearch') . '%');
+        }
+    }
 }

@@ -13,7 +13,14 @@ class CategoryController extends Controller
     {
         // dd(Category::get());
         // dd($request->user()->products);
-        $categories = Category::get();
+        // No filter
+        // $categories = Category::get();
+
+        // With filter
+        // $favorites = $user->favorites()->filter(request(['tableSearch']))->get();
+
+
+        $categories = Category::latest()->filter(request(['tableSearch']))->paginate(10);
 
 
         return view('categories.index', [
