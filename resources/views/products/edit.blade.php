@@ -111,9 +111,39 @@
             <!-- Two columns -->
             <div id="lightgallery" class="flex flex-wrap justify-between pb-10 ml-4 h-32 -mx-2">
                 @foreach($product->images as $image)
-                <a href="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" data-lg-size="1024-800" class="md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
+                
+                    <!-- <a href="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" data-lg-size="1024-800" class="md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
+                        <img src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" alt="Product Image" class="w-full h-full mb-4 object-cover object-center group-hover:opacity-75">
+                    </a> -->
+
+                    <div data-src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" class="relative md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
+                            <img src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" alt="Product Image" class="w-full h-full mb-4 object-cover object-center group-hover:opacity-75">
+                    
+                         <div class="absolute top-0 right-0 mt-2 mr-2">
+                            <form action="{{ route('product.images.destroy', [$product, $image]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="handleButtonClick(event)">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+
+                    <!-- <div class="relative md:w-full lg:w-1/2 mb-4 max-h-60 px-2">
+                    Product Image
                     <img src="@if($image === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $image->image_path) }} @endif" alt="Product Image" class="w-full h-full mb-4 object-cover object-center group-hover:opacity-75">
-                </a>
+
+                    Button Container
+                    <div class="absolute top-0 right-0 mt-2 mr-2">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="handleButtonClick(event)">Button</button>
+                    </div>
+                    </div> -->
+                    
+
+                    <!-- <div class="item" data-src="img/img1.jpg">
+                        <img src="img/thumb1.jpg" />
+                    </div> -->
+                
                 @endforeach
             </div>
         </div>
@@ -137,6 +167,22 @@
         toggleThumb: false,
     });
 
+    
+
 
 </script>
+
+<!-- From opening lightGallery -->
+<script>
+    function handleButtonClick(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+
+    // Your button click logic here
+
+    // For example, you can display an alert
+    // alert("Button clicked");
+  }
+</script>
+
 @endsection

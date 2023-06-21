@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProductFavoriteController;
+use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\SearchResultsController;
 
 /*
@@ -29,10 +30,13 @@ use App\Http\Controllers\SearchResultsController;
 //     ];
 //     return view('homepage', ['products' => $products]);
 // }
+Route::delete('/products/{product:title}/edit/{image}', [ProductImageController::class, 'destroy'])->name('product.images.destroy');
 
 Route::get('/', [HomepageController::class, 'index']);
 
 Route::get('/results', [SearchResultsController::class, 'search']);
+
+
 
 
 Route::get('/products/u/favorites', [ProductFavoriteController::class, 'index'])->name('favorites.index');
