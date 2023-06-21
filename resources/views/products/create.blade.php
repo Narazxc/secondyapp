@@ -5,7 +5,7 @@
    <!-- Referencing Blade component (sidebar) -->
    <x-sidebar/>
    <!-- This div is to make content stays beside the sidebar -->
-   <div class="flex justify-center p-4 sm:ml-64 h-full">
+   <div class="flex justify-center p-4 sm:ml-64 h-full ">
 
       <!-- Wrapper for box-shadow -->
       <div class="shadow-md w-3/4 rounded-md">

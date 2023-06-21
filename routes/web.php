@@ -37,7 +37,7 @@ Route::get('/results', [SearchResultsController::class, 'search']);
 
 Route::get('/products/u/favorites', [ProductFavoriteController::class, 'index'])->name('favorites.index');
 Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites');
-Route::delete('/products/{product}/favorites', [ProductFavoriteController::class, 'destroy'])->name('products.favorites');
+Route::delete('/products/{product}/favorites', [ProductFavoriteController::class, 'destroy'])->name('favorites.destroy');
 
 
 // categories

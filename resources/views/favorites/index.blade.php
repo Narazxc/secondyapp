@@ -67,7 +67,7 @@
                                 <td class="px-6 py-4">
                                     <div class="h-full flex justify-evenly">
                                         <a href="{{ route('products.show', $favorite->product)  }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Product</a>
-                                        <form action="" method="post">
+                                        <form action="{{ route('favorites.destroy', $favorite->product) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove from favorite</button>
