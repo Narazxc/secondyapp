@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
+use Jorenvh\Share\ShareFacade;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -57,13 +58,23 @@ class ProductController extends Controller
         $sameCategoryProductsExceptTheOneViewing = Product::where('category_id', $categoryID)
                     ->where('id', '!=', $currentProductId)
                     ->get();
+
+
+        // This will generate html
+        // ShareFacade::page('https://www.youtube.com/watch?v=89EsyytYUXw', $product->title)
         
+        $shareComponent = ShareFacade::currentPage($product->title)
+                ->facebook()
+                ->twitter()
+                ->reddit()
+                ->telegram();
 
         return view('products.show', [
             'product' => $product,
             'user' => $request->user(),  // For displaying user in the navbar (homepage / product-detail)
             'relatedProducts' => $sameCategoryProductsExceptTheOneViewing,
-            'products' => $products
+            'products' => $products,
+            'shareComponent' => $shareComponent,
         ]);
     }
 

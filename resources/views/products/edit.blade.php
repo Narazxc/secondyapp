@@ -123,7 +123,7 @@
                             <form action="{{ route('product.images.destroy', [$product, $image]) }}" method="post">
                                 @csrf
                                 @method('delete')
-                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="handleButtonClick(event)">Delete</button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="handleButtonClick(event)">Remove</button>
                             </form>
                         </div>
                     </div>

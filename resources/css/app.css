@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+div#social-links {
+    @apply w-52;
+}
+
+div#social-links ul {
+    @apply flex flex-wrap -mb-4;
+}
+
+div#social-links ul li {
+    @apply w-1/4;
+}
+
+div#social-links ul li a {
+    @apply text-4xl px-1 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white;
+}

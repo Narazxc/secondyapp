@@ -2,6 +2,12 @@
 
 @section('content')
 
+    <!-- <style>
+        div#social-links ul li span{
+        }
+    </style> -->
+
+
     <!-- <div class="container flex-col py-24 h-3/4 flex md:flex-row lg:flex-row xl:flex-row justify-center mx-auto">
         <div class="flex-1">
             <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
@@ -191,6 +197,16 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    @if($product->user_id === auth()->user()->id)
+                        <div class="py-6 h-32 border-b border-gray-200 flex items-center justify-between">
+                        <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Share Your Product to Social</p>
+                            <div class="pb-5 flex items-center justify-center">
+                                {!! $shareComponent !!}
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
         
@@ -276,7 +292,7 @@
     </div>
         
         
-    
+
 <script>
 let elements = document.querySelectorAll("[data-menu]");
 for (let i = 0; i < elements.length; i++) {
@@ -348,11 +364,13 @@ for (let i = 0; i < elements.length; i++) {
     //     ProductImg.src = SmallImg[3].src;
     //   };
 
-
-
-
 </script>
-
+<!-- <script>
+    var element = document.querySelector(".fab");
+  element.classList.add("fa-2xl");
+</script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/share.js') }}"></script>
 
 
 
