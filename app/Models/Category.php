@@ -21,7 +21,7 @@ class Category extends Model
 
    public function scopeFilter($query, array $filters)
     {
-         if($filters['tableSearch'] ?? false){
+        if($filters['tableSearch'] ?? false){
             $query->where('name', 'like', '%' . request('tableSearch') . '%');
         }
     }

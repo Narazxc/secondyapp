@@ -18,7 +18,12 @@ class Product extends Model
         'description',
         'price',
         'tags',
-        'category_id'
+        'category_id',
+        'status'
+    ];
+
+    protected $casts = [
+        'product_status' => 'boolean',
     ];
 
 
@@ -60,6 +65,11 @@ class Product extends Model
             $query->where('title', 'like', '%' . request('search') . '%')
             ->orWhere('description', 'like', '%' . request('search') . '%')
             ->orWhere('tags', 'like', '%' . request('search') . '%');
+        }
+
+        if($filters['tableSearch'] ?? false){
+            $query->where('title', 'like', '%' . request('tableSearch') . '%')
+            ->orWhere('tags', 'like', '%' . request('tableSearch') . '%');
         }
 
     }

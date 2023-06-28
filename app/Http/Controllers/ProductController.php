@@ -24,7 +24,11 @@ class ProductController extends Controller
 
         
         // Get all the products created by currently authenticated user
-        $products = Product::where('user_id', $request->user()->id)->get(); 
+        // $products = Product::where('user_id', $request->user()->id)->get(); 
+
+        // Added table search and paginate the table
+        // $products = Product::where('user_id', $request->user()->id)->filter(request()->only('tableSearch'))->paginate(5); 
+        $products = $request->user()->products()->filter(request()->only('tableSearch'))->paginate(5); 
         
         // dd($products->categories);
         return view('products.index', [
@@ -150,7 +154,7 @@ class ProductController extends Controller
 
     public function update (Request $request, Product $product){
 
-        // dd($request);
+        // dd($request->status);
 
         // Input validation
         $this->validate($request, [
@@ -163,7 +167,7 @@ class ProductController extends Controller
         ]);
 
 
-        // Can't use $request->all() cause confliction with product category_id & $request->category
+        // Can't use $request->all() because of the confliction with product category_id & $request->category (naming)
         // $product->update($request->all());
      
         $product->update([
@@ -172,6 +176,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'tags' => $request->tags,
             'category_id' => $request->category,
+            'status' => $request->status
         ]);
 
 
