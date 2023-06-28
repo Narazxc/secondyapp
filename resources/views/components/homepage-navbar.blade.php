@@ -52,6 +52,37 @@
                     </li>
                 </ul>
             </div> -->
+            <div class="relative group">
+            <button
+                id="dropdownButton"
+                type="button"
+                class="rounded-lg group-hover:text-gray-900 hover:bg-gray-100 flex flex-wrap items-center py-2 px-4 text-sm text-gray-500 dark:text-gray-400 dark:hover:text-white"
+                data-dropdown-toggle="dropdown1"
+            ><span class="text-lg">Categories</span>
+        
+                <svg class="w-4 h-4 ml-2 group-hover:text-gray-900 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+                </svg>
+            </button>
+                <ul
+                    id="dropdown1"
+                    aria-labelledby="dropdown1"
+                    class="hidden absolute z-50 py-1 mt-2 w-56 hover:ease-in duration-700 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                    
+                >
+                    <li>
+                        <a href="/dashboard" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
+                            My Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
+                            Account Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
             
             <!-- Notifications -->
             <button type="button" data-dropdown-toggle="notification-dropdown" class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
@@ -237,3 +268,12 @@
         </div>
     </div>
 </nav>
+
+
+<!-- <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("dropdown1");
+        dropdown.classList.toggle("hidden");
+    }
+</script> -->
+
