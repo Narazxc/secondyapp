@@ -9,6 +9,8 @@ use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\ShareFacade;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\File;
+
 
 class ProductController extends Controller
 {
@@ -84,6 +86,8 @@ class ProductController extends Controller
 
     public function store(Request $request){
 
+        // dd($request->all());
+
         // Input validation
         $this->validate($request, [
             // Validation rules comes with the Controller class, check laravel doc
@@ -92,10 +96,16 @@ class ProductController extends Controller
             'tags' => 'required',
             'price' => 'required',
             'category' => 'required',
-            'images' => 'required'
+            // 'images' => 'sometimes|image|mimes:jpeg,png,jpg,webp|max:4048', // not accepting webp but throw error
+            'images.*' => [
+                'sometimes', 
+                File::image(['jpeg', 'png', 'jpg', 'webp'])
+                    ->max(5 * 1024), // 5MB
+            ] // accept webp but not throw any error
         ]);
         
-        // dd($request->all());
+   
+        
         
         // Create product via user and product relationship
         $product = $request->user()->products()->create([
@@ -106,10 +116,17 @@ class ProductController extends Controller
             'price' => $request->price,
             'tags' => $request->tags,
             'category_id' => $request->category,
+            
         ]);
         
         
         // No file type validation yet
+        // $this->validate($request, [
+            
+        // ]);
+
+
+
         $images = $request->file('images');
         
         // Retrieve the product ID
@@ -117,26 +134,31 @@ class ProductController extends Controller
 
         $uploadCount = 0;
 
-        foreach ($images as $image) {
-            
-            // time_randomstring.png/jpg
-            $imageName = time() . '_' . Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            
-            // Create and save the image with the product ID
-            $productImage = new ProductImage();
-            $productImage->image_path = $imageName;
-            $productImage->product_id = $productID;
-            $productImage->save();
-            $uploadCount++;
-        }
+        // Process and store the uploaded images
+        if ($request->hasFile('images')) {
+            foreach ($images as $image) {
+                
+                // time_randomstring.png/jpg
+                $imageName = time() . '_' . Str::random(20) . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $imageName);
+                
+                // Create and save the image with the product ID
+                $productImage = new ProductImage();
+                $productImage->image_path = $imageName;
+                $productImage->product_id = $productID;
+                $productImage->save();
+                $uploadCount++;
+            }
 
-        if ($uploadCount === count($images)) {
-            // Images uploaded successfully
-            // return $uploadCount . ' image(s) uploaded successfully.';
+            if ($uploadCount === count($images)) {
+                // Images uploaded successfully
+                // return $uploadCount . ' image(s) uploaded successfully.';
+                return redirect('/');
+            }
+
+        } else {
             return redirect('/');
         }
-
     }
 
     public function edit (Product $product)
@@ -164,6 +186,11 @@ class ProductController extends Controller
             'price' => 'required',
             'tags' => 'required',
             'category' => 'required',
+            'images.*' => [
+                'sometimes', 
+                File::image(['jpeg', 'png', 'jpg', 'webp'])
+                    ->max(5 * 1024),
+            ]
         ]);
 
 
@@ -181,7 +208,13 @@ class ProductController extends Controller
 
 
         // No file type validation yet
+        // $this->validate($request, [
+        //     'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        // ]);
+    
+
         $images = $request->file('images');
+
 
         // If user don't update any images
         if($images === null){

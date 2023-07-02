@@ -52,30 +52,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($favorites as $favorite)
+                        @if(count($favorites) == 0)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td class="w-32 p-4">
-                                    <img src="@if($favorite->product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $favorite->product->images->first()->image_path) }} @endif" alt="{{ $favorite->product->description }}">
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                                    {{ $favorite->product->title }}
-                                </td>
-
-                                <td class="px-6 py-4  dark:text-white">
-                                    {{ $favorite->created_at->diffForHumans() }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="h-full flex justify-evenly">
-                                        <a href="{{ route('products.show', $favorite->product)  }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Product</a>
-                                        <form action="{{ route('favorites.destroy', $favorite->product) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove from favorite</button>
-                                        </form>
-                                    </div>
+                                    Go like something :)
                                 </td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach($favorites as $favorite)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="w-32 p-4">
+                                        <img src="@if($favorite->product->images->first() === null) https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg  @else {{ asset('images/' . $favorite->product->images->first()->image_path) }} @endif" alt="{{ $favorite->product->description }}">
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                        {{ $favorite->product->title }}
+                                    </td>
+
+                                    <td class="px-6 py-4  dark:text-white">
+                                        {{ $favorite->created_at->diffForHumans() }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-full flex justify-evenly">
+                                            <a href="{{ route('products.show', $favorite->product)  }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Product</a>
+                                            <form action="{{ route('favorites.destroy', $favorite->product) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove from favorite</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        @endif
+                        
                     </tbody>
                 </table>
             </div>

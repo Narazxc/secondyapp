@@ -30,9 +30,17 @@ use App\Http\Controllers\SearchResultsController;
 //     ];
 //     return view('homepage', ['products' => $products]);
 // }
+
+// Route::group(['middleware' => 'wizard-completed'], function () {
+//     // Routes that require the user to have completed the wizard
+// });
+Route::get('/userpreference', function() {
+    return view('userpreference');
+})->name('userpreference');
+
 Route::delete('/products/{product:title}/edit/{image}', [ProductImageController::class, 'destroy'])->name('product.images.destroy');
 
-Route::get('/', [HomepageController::class, 'index']);
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::get('/results', [SearchResultsController::class, 'search']);
 
@@ -63,7 +71,7 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::get('/products/{product:title}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
 Route::post('/products', [ProductController::class, 'store']);
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->withoutMiddleware(['auth']);
 Route::patch('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 

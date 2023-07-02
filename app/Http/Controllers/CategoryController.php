@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -38,17 +40,30 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-    // // Validation
-    // $this->validate($request, [
-    //     'category' => 'required'
-    // ]);
+        // dd($request->all());
+
+
+    // Validation
+    $rules = [
+        'name' => 'required|unique:categories',
+    ];
+
+    $messages = [
+        'name.unique' => 'The category name already exists.',
+    ];
+
+    $validator = Validator::make($request->all(), $rules, $messages);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
 
     // for debugging purposes
     // dd($request->all());
 
 
     // Store/create
-    Category::create(['name' => $request->category]);
+    Category::create(['name' => $request->name]);
 
         return redirect()->route('categories');
     }
@@ -65,7 +80,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request, [
-            'name' => 'required'
+            // 'name' => 'required'
+            'name' => [
+            'required',
+                Rule::unique('categories')->ignore($category->id),
+            ],
         ]);
 
         $category->update([

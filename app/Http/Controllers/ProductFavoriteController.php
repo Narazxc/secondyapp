@@ -41,6 +41,9 @@ class ProductFavoriteController extends Controller
 
     public function store(Product $product, Request $request)
     {
+
+        
+
         // dd($product->favoritedBy($request->user()));
         if($product->favoritedBy($request->user())) {
             return response(null, 409);

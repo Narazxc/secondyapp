@@ -4,20 +4,32 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>SECONDY</title>
-        <link rel="icon" type="image/png" href="/secondy_icon.png">
+        <title>Laravel</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" integrity="sha512-F2E+YYE1gkt0T5TVajAslgDfTEUQKtlu4ralVq78ViNxhKXQLrgQLLie8u1tVdG2vWnB3ute4hcdbiBtvJQh0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         @vite(['resources/css/app.css','resources/js/app.js'])
-
+        @livewireStyles
     </head>
+
     <body class="antialiased">
+          
+        
+    <div class="container-lg m-0 flex justify-center h-screen items-center">
+        <!-- Wrapper for box-shadow -->
+        <div class="shadow-md w-3/4 h-3/4 rounded-md">
+            
+            @livewire('user-preference-form')
 
-        @yield('content')
+        </div>
+    
+    </div>
 
+
+        @livewireScripts
     </body>
 </html>
+
+
+

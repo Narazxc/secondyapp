@@ -119,6 +119,7 @@
                 </div>
 
 
+                @auth
                 @if(!$product->favoritedBy(auth()->user()))
                     <form class="mt-6" action="{{ route('products.favorites', $product) }}" method="post">
                         @csrf
@@ -139,6 +140,7 @@
                         </button>
                     </form>
                 @endif
+                @endauth
 
                 <!-- <button class="dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
                     <img class="mr-3 dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/svg1.svg" alt="location">
@@ -148,6 +150,7 @@
                 <div>
                     <p class="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">{{ $product->description }}</p>
                     <p class="text-base leading-4 mt-7 text-gray-600 dark:text-gray-300">Product ID: {{ $product->id }}</p>
+                    <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Category: {{ $product->category->name }}</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Tags: 
                         @php
                             $tags = explode(',', $product->tags);
@@ -160,9 +163,15 @@
                             @endforeach
                         </span>
                     </p>
+                    
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Favorites: {{ $product->favorites->count() }}</p>
-
-
+                    @if($product->status)
+                    <div class="flex item-center">
+                        <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300 align-center">Status: 
+                            </p> 
+                            <span class="ml-4 inline-flex opacity-95 items-center badge z-10 bg-yellow-50 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mt-2 mr-2 px-2.5 py-1 rounded-full dark:bg-indigo-900 dark:text-indigo-300"> <svg aria-hidden="true" class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>On hold</span>    
+                    </div>
+                    @endif
                     <!-- <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Length: 13.2 inches</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Height: 10 inches</p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Depth: 5.1 inches</p>
@@ -198,14 +207,17 @@
                     </div>
                 </div>
                 <div>
-                    @if($product->user_id === auth()->user()->id)
-                        <div class="py-6 h-32 border-b border-gray-200 flex items-center justify-between">
-                        <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Share Your Product to Social</p>
-                            <div class="pb-5 flex items-center justify-center">
-                                {!! $shareComponent !!}
+
+                    @auth
+                        @if($product->user_id === auth()->user()->id)
+                            <div class="py-6 h-32 border-b border-gray-200 flex items-center justify-between">
+                            <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Share Your Product to Social</p>
+                                <div class="pb-5 flex items-center justify-center">
+                                    {!! $shareComponent !!}
+                                </div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    @endauth
                 </div>
             </div>
         </div>
