@@ -107,7 +107,10 @@
                         <div class="flex justify-between">
                             <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[0]['name']}}</h2>
 
-                            <a href="" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">hello</a>
+                            <form action="{{ route('homepage.categories', $categorySections[0]['name']) }}" method="get">
+
+                                <button type="submit" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">View more</button>
+                            </form>
                         </div>
 
                         
@@ -151,7 +154,13 @@
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
+                        <div class="flex justify-between">
                         <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[1]['name']}}</h2>
+
+                            <form action="{{ route('homepage.categories', $categorySections[1]['name']) }}" method="get">
+                                <button type="submit" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">View more</button>
+                            </form>
+                        </div>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         
@@ -192,7 +201,13 @@
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
-                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[2]['name']}}</h2>
+                        <div class="flex justify-between">
+                            <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[2]['name']}}</h2>
+
+                            <form action="{{ route('homepage.categories', $categorySections[2]['name']) }}" method="get">
+                                <button type="submit" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">View more</button>
+                            </form>
+                        </div>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         
@@ -295,8 +310,10 @@
                                 </a>
                             </div>
                         @endforeach
-
                     </section>
+                    <div class="w-full my-10 flex justify-center">
+                        <a href="{{ route('homepage.products') }}" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Show all products</a>
+                    </div>
                 @else
 
                     <section>
@@ -364,8 +381,15 @@
                                 </a>
                             </div>
                         @endforeach
-
                     </section>
+                    <div class="w-full flex justify-center">
+                         <!-- <form action="{{ route('homepage.products') }}" method="get">
+                            <button type="submit" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Show all products</button>
+                        </form> -->
+
+                        <a href="{{ route('homepage.products') }}" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Show all products</a>
+                        
+                    </div>
                 @endif
             @endauth
 
@@ -436,8 +460,10 @@
                             </a>
                         </div>
                     @endforeach
-
                 </section>
+                <div class="w-full my-10 flex justify-center">
+                        <a href="{{ route('homepage.products') }}" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Show all products</a>
+                </div>
             @endguest
         
     </main>

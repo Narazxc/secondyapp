@@ -41,6 +41,8 @@ Route::get('/userpreference', function() {
 Route::delete('/products/{product:title}/edit/{image}', [ProductImageController::class, 'destroy'])->name('product.images.destroy');
 
 Route::get('/', [HomepageController::class, 'home'])->middleware('wizard-completed')->name('homepage');
+Route::get('/products', [HomepageController::class, 'productIndex'])->name('homepage.products');
+Route::get('/categories/{category:name}', [HomepageController::class, 'categoryIndex'])->name('homepage.categories');
 
 Route::get('/results', [SearchResultsController::class, 'search']);
 

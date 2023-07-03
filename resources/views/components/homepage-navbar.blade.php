@@ -64,9 +64,14 @@
                         <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
                             @foreach($categories as $index => $category)
                                 <li>
-                                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
+                                <form action="{{ route('homepage.categories', $category) }}" method="get">
+                                    <button type="submit" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
                                         {{ $category->name }}
-                                    </a>
+                                    </button>
+                                </form>
+                                    <!-- <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
+                                        {{ $category->name }}
+                                    </a> -->
                                 </li>
                                 @if(($index + 1) % 4 === 0)
                         </ul>

@@ -14,7 +14,7 @@ class HomepageController extends Controller
     public function home()
     {
         $user = Auth::user();
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->paginate(8);
         
         $preferredCategories = [];
         $preferredProducts = [];
@@ -61,7 +61,7 @@ class HomepageController extends Controller
 
 
             foreach ($preferredCategories as $category) {
-                $preferredProducts[] = Product::where('category_id', $category->id)->get();
+                $preferredProducts[] = Product::where('category_id', $category->id)->paginate(8);
             } 
 
             
@@ -128,8 +128,38 @@ class HomepageController extends Controller
 
     }
 
-    public function index()
+    public function productIndex()
     {
-        $products = Product::get();
+        $products = Product::orderBy('created_at', 'desc')->get();
+        $user = Auth::user();
+        $categories = Category::all();
+
+        return view('productIndex', [
+            'user' => $user, 
+            'products' => $products,
+            'categories' => $categories
+        ]);
     }
+
+
+
+    public function categoryIndex(Category $category)
+    {
+        $user = Auth::user();
+        $categories = Category::all();
+        
+        // get product according to category
+        // $products = Product::where('category', $category)->get();
+        $products = $category->products;
+
+
+        return view('categoryIndex', [
+            'user' => $user, 
+            'products' => $products,
+            'categories' => $categories,
+            'category' => $category
+        ]);
+    }
+
+
 }

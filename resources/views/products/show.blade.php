@@ -150,7 +150,7 @@
                 <div>
                     <p class="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">{{ $product->description }}</p>
                     <p class="text-base leading-4 mt-7 text-gray-600 dark:text-gray-300">Product ID: {{ $product->id }}</p>
-                    <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Category: {{ $product->category->name }}</p>
+                    <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Category: <a href="{{ route('homepage.categories', $product->category->name) }}">{{ $product->category->name }}</a></p>
                     <p class="text-base leading-4 mt-4 text-gray-600 dark:text-gray-300">Tags: 
                         @php
                             $tags = explode(',', $product->tags);
