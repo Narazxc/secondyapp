@@ -1,6 +1,16 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </x-slot>
+
+        <!-- Validation Errors -->
+        <!-- <x-fromMobileVification.auth-validation-errors class="mb-4" :errors="$errors" /> -->
+
+        <form method="POST" action="{{ route('mobile-register.store') }}">
+            @csrf
 
         <!-- Name -->
         <div>
@@ -10,11 +20,18 @@
         </div>
 
         <!-- Email Address -->
-        <div class="mt-4">
+        <!-- <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        </div> -->
+
+        <!-- Mobile Number -->
+            <div class="mt-4">
+                <x-input-label for="mobile_number" :value="__('Mobile Number')" />
+                <x-text-input id="mobile_number" class="block mt-1 w-full" type="tel" name="mobile_number" :value="old('mobile_number')" required />
+                <x-input-error :messages="$errors->get('mobile_number')" class="mt-2" />
+            </div>
 
         <!-- Password -->
         <div class="mt-4">
@@ -38,26 +55,16 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-        
-          
-            
-            <div class="flex items-center justify-between mt-4 w-full">
 
-                <a class="underline w-36 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('mobile-register') }}">
-                    {{ __('Register with Phone Number?') }}
-                </a>
+        <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
 
-                <div>
+            <x-primary-button class="ml-4">
+                {{ __('Register') }}
+            </x-primary-button>
+        </div>
+        </form>
 
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-    
-                    <x-primary-button class="ml-4">
-                        {{ __('Register') }}
-                    </x-primary-button>
-                </div>
-            </div>
-        
-    </form>
 </x-guest-layout>

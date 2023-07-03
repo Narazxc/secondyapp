@@ -17,8 +17,9 @@ class WizardCompletionMiddleware
     {
         $user = $request->user();
 
+       
 
-        if ($user && !$user->completed_wizard) {
+        if ($user && !$user->wizard_completed) {
             return redirect()->route('userpreference');
         }
 

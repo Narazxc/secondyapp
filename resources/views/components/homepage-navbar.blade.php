@@ -1,5 +1,8 @@
 <!-- Define props that we want to use in this post component -->
-@props(['user' => $user])
+@props(['user' => $user,
+'categories' => $categories
+])
+
 
 <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
     <div class="flex flex-wrap justify-between items-center">
@@ -54,16 +57,46 @@
             </div> -->
             <div class="z-50">
                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                        Company <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        Categories <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <div id="mega-menu-dropdown" class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-4 dark:bg-gray-700">
+                    <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
+                        <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
+                            @foreach($categories as $index => $category)
+                                <li>
+                                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
+                                @if(($index + 1) % 4 === 0)
+                        </ul>
+                    </div>
+                    <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
+                        <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                  
+                </div>
+            </div>
+
+            <!-- <div class="z-50">
+                <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
+                        Categories <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </button>
                     <div id="mega-menu-dropdown" class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
                         <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                             <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
+                              
                                 <li>
+                                    
                                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
                                         About Us
                                     </a>
+
                                 </li>
+                                
                                 <li>
                                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
                                         Library
@@ -125,8 +158,9 @@
                             </ul>
                         </div>
                     </div>
-            </div>
-            <div class="relative group">
+            </div> -->
+            
+            <!-- <div class="relative group">
             <button
                 id="dropdownButton"
                 type="button"
@@ -155,7 +189,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
             
             
@@ -304,7 +338,12 @@
                 <div class="py-3 px-4">
                 
                     <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ $user->name }}</span>
-                    <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ $user->email }}</span>
+
+                    @if($user->email)
+                        <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ $user->email }}</span>
+                    @else
+                        <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ $user->mobile_number }}</span>
+                    @endif
                
                 </div>
                 <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">

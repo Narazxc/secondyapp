@@ -14,13 +14,20 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('mobile_number')->unique()->nullable();
+            $table->timestamp('mobile_verified_at')->nullable();
+            $table->string('mobile_verify_code')->nullable();
+            $table->tinyInteger('mobile_attempts_left')->default(0);
+            $table->timestamp('mobile_last_attempt_date')->nullable();
+            $table->timestamp('mobile_verify_code_sent_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

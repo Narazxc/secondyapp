@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -27,7 +29,17 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            // original
+            // 'email' => ['required', 'string', 'email'],
+            // 'password' => ['required', 'string'],
+
+
+            // 'email' => ['required_without:mobile_number', 'string', 'email'],
+            // 'mobile_number' => ['required_without:email'],
+            // 'password' => ['required', 'string'],
+
+
+            'email' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,13 +53,47 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // original
+        // $credentials = $this->only('email', 'password');
+        // $remember = $this->boolean('remember');
+
+        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        //     RateLimiter::hit($this->throttleKey());
+
+        //     throw ValidationException::withMessages([
+        //         'email' => trans('auth.failed'),
+        //     ]);
+        // } 
+
+
+        $user = User::where('email', $this->input('email'))
+            ->orWhere('mobile_number', $this->input('email'))
+            ->first();
+
+        if ( !$user || !Hash::check($this->password, $user->password) ) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'login' => __('auth.failed'),
             ]);
         }
+        Auth::login($user, $this->boolean('remember'));
+        RateLimiter::clear($this->throttleKey());
+
+
+        ////////////////////////////////////
+    //     else {
+    //     // Authenticate using mobile number
+    //     $user = User::where('mobile_number', $credentials['email'])->first();
+    //     if (!$user || !Hash::check($credentials['password'], $user->password)) {
+    //         RateLimiter::hit($this->throttleKey());
+    //         throw ValidationException::withMessages([
+    //             'email' => trans('auth.failed'),
+    //         ]);
+    //     }
+    //     Auth::login($user, $remember);
+    // }
+    ///////////////////////////////////////////////
 
         RateLimiter::clear($this->throttleKey());
     }

@@ -36,11 +36,11 @@ use App\Http\Controllers\SearchResultsController;
 // });
 Route::get('/userpreference', function() {
     return view('userpreference');
-})->name('userpreference');
+})->middleware(['auth', 'verified', 'verify.mobile'])->name('userpreference');
 
 Route::delete('/products/{product:title}/edit/{image}', [ProductImageController::class, 'destroy'])->name('product.images.destroy');
 
-Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::get('/', [HomepageController::class, 'home'])->middleware('wizard-completed')->name('homepage');
 
 Route::get('/results', [SearchResultsController::class, 'search']);
 
@@ -79,7 +79,7 @@ Route::delete('/products/{product}', [ProductController::class, 'destroy'])->nam
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'verify.mobile'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

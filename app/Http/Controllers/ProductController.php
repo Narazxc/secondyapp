@@ -51,6 +51,8 @@ class ProductController extends Controller
 
     public function show(Product $product, Request $request){
 
+        $categories = Category::all();
+
         $currentProductId = $product->id; // Replace with the ID of the current product
         $categoryID = $product->category_id; // Replace with the desired category ID
 
@@ -81,6 +83,7 @@ class ProductController extends Controller
             'relatedProducts' => $sameCategoryProductsExceptTheOneViewing,
             'products' => $products,
             'shareComponent' => $shareComponent,
+            'categories' => $categories
         ]);
     }
 

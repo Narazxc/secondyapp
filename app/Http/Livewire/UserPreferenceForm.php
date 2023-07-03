@@ -144,4 +144,17 @@ class UserPreferenceForm extends Component
             }
         }
     }
+
+     public function unselectBadge($categoryId)
+    {
+        if (in_array($categoryId, $this->selectedBadges)) {
+            // If the category is already selected, remove it
+            $this->selectedBadges = array_diff($this->selectedBadges, [$categoryId]);
+        } else {
+            // If the category is not selected, add it if the limit is not reached
+            if (count($this->selectedBadges) < 3) {
+                $this->selectedBadges[] = $categoryId;
+            }
+        }
+    }
 }

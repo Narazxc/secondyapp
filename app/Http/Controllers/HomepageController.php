@@ -11,17 +11,22 @@ use Illuminate\Support\Facades\Auth;
 class HomepageController extends Controller
 {
     //
-    public function index()
+    public function home()
     {
         $user = Auth::user();
         $products = Product::all();
-
+        
         $preferredCategories = [];
         $preferredProducts = [];
-
-
-        $categories = [];
+        
+        
+        $categorySections = [];
         $recommendedProducts = null;
+        
+        $categories = Category::all();
+
+
+
 
 
 
@@ -72,7 +77,7 @@ class HomepageController extends Controller
 
             list($cat1, $cat2, $cat3) = $preferredProducts;
 
-            $categories = [
+            $categorySections = [
             [
                 'name' => $preferredCategories[0]->name,
                 'products' => $cat1
@@ -115,9 +120,16 @@ class HomepageController extends Controller
         // 'cat2' => $cat2,
         // 'cat3' => $cat3,
         'preferredProducts' => $preferredProducts, // array of collections
-        'categories' => $categories,
-        'recommendedProducts' => $recommendedProducts
+        'categorySections' => $categorySections,
+        'recommendedProducts' => $recommendedProducts,
+        'categories' => $categories
+
     ]);
 
+    }
+
+    public function index()
+    {
+        $products = Product::get();
     }
 }

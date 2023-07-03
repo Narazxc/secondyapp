@@ -158,7 +158,7 @@
                                 @csrf
                                 <div>
                                     <label for="name" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Enter category name/title</label>
-                                    <input type="text" required name="name" id="name" class=" @error('name') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Sports and Outdoors">
+                                    <input type="text" required name="name" id="name" class=" @error('name') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Sports and Outdoors" autofocus>
                                 </div>
 
                                 @error('name')

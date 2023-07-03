@@ -23,7 +23,7 @@
         <header>
             <!-- Referencing Blade component -->
             <!-- Pass down data we want to use in this Blade component as prop -->
-            <x-homepage-navbar :user="$user" />
+            <x-homepage-navbar :user="$user" :categories="$categories"/>
         </header>
 
 

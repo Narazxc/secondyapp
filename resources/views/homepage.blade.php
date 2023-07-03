@@ -104,15 +104,20 @@
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
-                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categories[0]['name']}}</h2>
+                        <div class="flex justify-between">
+                            <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[0]['name']}}</h2>
 
+                            <a href="" class="hover:underline text-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">hello</a>
+                        </div>
+
+                        
                         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         
                         
                 
                                 
                         <!-- More products... -->
-                        @foreach ($categories[0]['products'] as $product)
+                        @foreach ($categorySections[0]['products'] as $product)
                             <div class="relative">
                                 <!-- Badge Component -->
                                 @if($product->status)
@@ -146,7 +151,7 @@
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
-                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categories[1]['name']}}</h2>
+                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[1]['name']}}</h2>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         
@@ -154,7 +159,7 @@
                 
                                 
                         <!-- More products... -->
-                        @foreach ($categories[1]['products'] as $product)
+                        @foreach ($categorySections[1]['products'] as $product)
                             <div class="relative">
                                 <!-- Badge Component -->
                                 @if($product->status)
@@ -187,7 +192,7 @@
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
-                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categories[2]['name']}}</h2>
+                        <h2 class="text-3xl mb-10 font-bold tracking-tight text-gray-900">{{$categorySections[2]['name']}}</h2>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         
@@ -195,7 +200,7 @@
                 
                                 
                         <!-- More products... -->
-                        @foreach ($categories[2]['products'] as $product)
+                        @foreach ($categorySections[2]['products'] as $product)
                             <div class="relative">
                                 <!-- Badge Component -->
                                 @if($product->status)

@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // Register Admin middleware
         "is_admin" => Admin::class,
-        'wizard-completed' => \App\Http\Middleware\WizardCompletionMiddleware::class,        
+        'wizard-completed' => \App\Http\Middleware\WizardCompletionMiddleware::class,
+        'verify.mobile' => \App\Http\Middleware\EnsureMobileIsVerifiedMiddleware::class,    
     ];
 }
