@@ -22,14 +22,14 @@ class ProductFavoriteController extends Controller
         // Current authenticated user
         $user = $request->user();
 
+            
+
         // dd($user->favorites);
 
 
         // Grab user favorite products
-        // $favorites = $user->favorites()->filter(request(['tableSearch']))->get();
+        // $favorites = $user->favorites()->filter(request(['tableSearch']))->get(5);
         $favorites = $user->favorites()->filter(request()->only('tableSearch'))->paginate(5);
-
-        // dd($favorites);
 
 
 
@@ -37,6 +37,9 @@ class ProductFavoriteController extends Controller
             'favorites' => $favorites
         ]);
     }
+
+ 
+
 
 
     public function store(Product $product, Request $request)

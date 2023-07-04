@@ -56,14 +56,16 @@ class ProductController extends Controller
         $currentProductId = $product->id; // Replace with the ID of the current product
         $categoryID = $product->category_id; // Replace with the desired category ID
 
-        $products = Product::paginate(8);
+        // $products = Product::paginate(8);
+        $products = Product::with('user', 'images', 'favorites', 'category')->paginate(8);
 
-        // get all product with the same category
+        // get all product with the same category including the one we are viewing
         $sameCategoryProducts = Product::where('category_id', $product->category_id)->paginate(8);
 
 
         // get product with the same category exclude the current product
         $sameCategoryProductsExceptTheOneViewing = Product::where('category_id', $categoryID)
+                    ->with('images')
                     ->where('id', '!=', $currentProductId)
                     ->get();
 

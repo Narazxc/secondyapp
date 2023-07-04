@@ -12,7 +12,7 @@ class SearchResultsController extends Controller
     {
         $categories = Category::all();
 
-        $products = Product::latest()->filter(request(['tag', 'search']))->get();
+        $products = Product::latest()->filter(request(['tag', 'search']))->with('images')->get();
 
         // dd(request()->tag);
         $user = $request->user();

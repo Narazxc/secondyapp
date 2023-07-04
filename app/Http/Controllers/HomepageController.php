@@ -14,7 +14,7 @@ class HomepageController extends Controller
     public function home()
     {
         $user = Auth::user();
-        $products = Product::orderBy('created_at', 'desc')->paginate(8);
+        $products = Product::orderBy('created_at', 'desc')->with('images')->paginate(8);
         
         $preferredCategories = [];
         $preferredProducts = [];
@@ -43,6 +43,7 @@ class HomepageController extends Controller
                 ->where('price', '<=', (int)$maxPrice)
                 ->get();
 
+                // dd($recommendedProducts);
             // dd($preferenceCategoryIds, $recommendedProducts, $minPrice, $maxPrice);
             
             
@@ -62,6 +63,8 @@ class HomepageController extends Controller
 
             foreach ($preferredCategories as $category) {
                 $preferredProducts[] = Product::where('category_id', $category->id)->paginate(8);
+                // $preferredProducts[] = $category->with('products')->paginate(8);
+                
             } 
 
             
@@ -130,7 +133,7 @@ class HomepageController extends Controller
 
     public function productIndex()
     {
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->with('images')->get();
         $user = Auth::user();
         $categories = Category::all();
 
@@ -150,7 +153,10 @@ class HomepageController extends Controller
         
         // get product according to category
         // $products = Product::where('category', $category)->get();
+
         $products = $category->products;
+        // $products = $category->with('products')->get();
+
 
 
         return view('categoryIndex', [

@@ -56,7 +56,7 @@
         @auth
                 @if($user->preference)
 
-                    @if($recommendedProducts)
+                    @if($recommendedProducts->count())
                     <!-- Recommended Products -->
                     <section>
                         <div class="bg-white">
@@ -101,6 +101,7 @@
                     @endif
 
                     <!-- 1st product section -->
+                    @if($categorySections[0]['products']->count())
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
@@ -147,10 +148,11 @@
                                 </a>
                             </div>
                         @endforeach
-
                     </section>
+                    @endif
 
                     <!-- 2nd product section -->
+                    @if($categorySections[1]['products']->count())
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
@@ -196,8 +198,10 @@
                             </div>
                         @endforeach
                     </section>
+                    @endif
 
                     <!-- 3rd product section -->
+                    @if($categorySections[2]['products']->count())
                     <section>
                         <div class="bg-white">
                         <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 md:py-16 lg:max-w-7xl lg:px-8 xl:py-16">
@@ -243,6 +247,7 @@
                             </div>
                         @endforeach
                     </section>
+                    @endif
                     
 
                     <section>

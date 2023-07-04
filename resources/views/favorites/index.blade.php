@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($favorites) == 0)
+                        @if($favorites->count() == 0)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td class="w-32 p-4">
                                     Go like something :)
