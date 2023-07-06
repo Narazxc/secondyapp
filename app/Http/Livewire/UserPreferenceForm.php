@@ -24,10 +24,10 @@ class UserPreferenceForm extends Component
 
         $this->categories = Category::all();
         $this->priceRanges = [
-            'Normal Product' => '0-50',
-            'Expensive Product' => '500-1000',
-            'Extra Expensive Product' => '1000-1500',
-            'Super Expensive Product' => '1500-2000',
+            'Normal Product' => '0-5',
+            'Expensive Product' => '5-10',
+            'Extra Expensive Product' => '10-50',
+            'Super Expensive Product' => '50-100',
         ];
 
     }
@@ -70,7 +70,7 @@ class UserPreferenceForm extends Component
 // |in:0 - 50,500 - 1000,1000 - 1500,1500 - 2000'
         elseif ($this->currentStep == 2){
             $this->validate([
-            'selectedPriceRange' => 'required|in:0-50,500-1000,1000-1500,1500-2000',
+            'selectedPriceRange' => 'required|in:0-5,5-10,10-50,50-100',
             ], [
                 'selectedPriceRange.required' => 'Please select a price range option.',
                 'selectedPriceRange.in' => 'Please select a valid price range option.',

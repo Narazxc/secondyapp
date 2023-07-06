@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\UserContact;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\ShareFacade;
 use Illuminate\Support\Str;
@@ -50,6 +51,8 @@ class ProductController extends Controller
 
 
     public function show(Product $product, Request $request){
+
+        // dd($product->userContact->telegram);
 
         $categories = Category::all();
 
@@ -106,7 +109,11 @@ class ProductController extends Controller
                 'sometimes', 
                 File::image(['jpeg', 'png', 'jpg', 'webp'])
                     ->max(5 * 1024), // 5MB
-            ] // accept webp but not throw any error
+            ], // accept webp but not throw any error
+            'mobileNumber' => 'required',
+            'telegram' => 'required',
+            'facebook' => 'required',
+
         ]);
         
    
@@ -124,11 +131,12 @@ class ProductController extends Controller
             
         ]);
         
+        $product->userContact()->create([
+            'mobile_number' => $request->mobileNumber,
+            'telegram' => $request->telegram,
+            'facebook' => $request->facebook,
+        ]);
         
-        // No file type validation yet
-        // $this->validate($request, [
-            
-        // ]);
 
 
 
@@ -182,6 +190,20 @@ class ProductController extends Controller
     public function update (Request $request, Product $product){
 
         // dd($request->status);
+        if(!$product->userContact){
+            $this->validate($request, [
+            // Validation rules comes with the Controller class, check laravel doc
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'tags' => 'required',
+            'category' => 'required',
+            'images.*' => [
+                'sometimes', 
+                File::image(['jpeg', 'png', 'jpg', 'webp'])
+                    ->max(5 * 1024),
+            ]]);
+        }
 
         // Input validation
         $this->validate($request, [
@@ -195,7 +217,10 @@ class ProductController extends Controller
                 'sometimes', 
                 File::image(['jpeg', 'png', 'jpg', 'webp'])
                     ->max(5 * 1024),
-            ]
+            ],
+            'mobileNumber' => 'required',
+            'telegram' => 'required',
+            'facebook' => 'required',
         ]);
 
 
@@ -208,7 +233,14 @@ class ProductController extends Controller
             'price' => $request->price,
             'tags' => $request->tags,
             'category_id' => $request->category,
-            'status' => $request->status
+            'status' => $request->status,
+        ]);
+
+
+        $product->userContact->update([
+            'mobile_number' => $request->mobileNumber,
+            'telegram' => $request->telegram,
+            'facebook' => $request->facebook,
         ]);
 
 

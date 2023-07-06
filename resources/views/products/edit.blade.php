@@ -132,6 +132,45 @@
                     </div>
                 @enderror
 
+            @if($product->userContact)
+                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                <h2 class="text-3xl font-bold my-4">Seller Information</h2>
+
+                <div class="mb-6">
+                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile Number</label>
+                <input type="number" value="{{ $product->userContact->mobile_number }}" name="mobileNumber" class=" @error('mobileNumber') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mobile Number" value="{{ old('mobileNumber') }}">
+
+                @error('mobileNumber')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
+                </div> 
+
+                <div class="mb-6">
+                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telegram</label>
+                <input type="text" value="{{ $product->userContact->telegram }}"  name="telegram" id="price" class=" @error('telegram') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your Telegram id and/or number" value="{{ old('telegram') }}">
+
+                @error('telegram')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
+                </div>
+
+
+                <div class="mb-6">
+                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facebook</label>
+                <input type="text" value="{{ $product->userContact->facebook }}" name="facebook" id="price" class=" @error('facebook') border-red-500 @enderror bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Paste your Facebook link here" value="{{ old('facebook') }}">
+
+                @error('facebook')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
+                </div>
+            @endif
+
 
                 <button type="submit" id="image-input" class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </form>

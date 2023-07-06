@@ -142,6 +142,18 @@
                 @endif
                 @endauth
 
+
+                @guest
+                    <form class="mt-6" action="{{ route('products.favorites', $product) }}" method="post">
+                        @csrf
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:outline-none ">
+                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Add to favorite
+                            </span>
+                        </button>
+                    </form>
+                @endguest
+
                 <!-- <button class="dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
                     <img class="mr-3 dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/svg1.svg" alt="location">
                     <img class="mr-3 hidden dark:block" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/svg1dark.svg" alt="location">
@@ -195,14 +207,21 @@
                 <div>
                     <div class="border-b py-4 border-gray-200">
                         <div data-menu class="flex justify-between items-center cursor-pointer">
-                            <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Contact us</p>
+                            <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Seller Information</p>
                             <button class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded" role="button" aria-label="show or hide">
                                 <img class="transform dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4.svg" alt="dropdown">
                                 <img class="transform hidden dark:block" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4dark.svg" alt="dropdown">
                             </button>
                         </div>
-                        <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300" id="sect"> Email: <span class="ml-2">{{ $product->user->email }}</span>
-
+                        <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300" id="sect"> 
+                            <span class="ml-2 block mb-2">Email: {{ $product->user->email }}</span>
+                            @if($product->userContact)
+                                <span class="ml-2 block mb-2">Mobile Number: {{ $product->userContact->mobile_number }}</span>
+                                <span class="ml-2 block mb-2">Telegram: {{ $product->userContact->telegram }}</span>
+                                <span class="ml-2 block mb-2">Facebook: 
+                                    <a target="_blank" class="hover:underline" href="{{ $product->userContact->facebook }}">{{ $product->userContact->facebook }}</a>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>

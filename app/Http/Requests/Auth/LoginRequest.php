@@ -74,7 +74,8 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'login' => __('auth.failed'),
+                // 'password' => __('auth.failed'),
+                'password' => __('Incorrect Credentials')
             ]);
         }
         Auth::login($user, $this->boolean('remember'));

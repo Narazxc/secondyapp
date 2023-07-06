@@ -80,4 +80,9 @@ class User extends Authenticatable implements IMustVerifyMobile
         return $this->hasOne(Preference::class);
     }
 
+    public function userContact(): HasOne
+    {
+        return $this->hasOne(UserContact::class);
+    }
+
 }

@@ -49,7 +49,7 @@ Route::get('/results', [SearchResultsController::class, 'search']);
 
 
 Route::get('/products/u/favorites', [ProductFavoriteController::class, 'index'])->name('favorites.index');
-Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites');
+Route::post('/products/{product}/favorites', [ProductFavoriteController::class, 'store'])->name('products.favorites')->middleware('auth');
 Route::delete('/products/{product}/favorites', [ProductFavoriteController::class, 'destroy'])->name('favorites.destroy');
 
 
